@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import imagemPrincipal from './assets/login.png'
 
-import './ModalCadastroUsuario.css'
+import './Modais.css'
 
 interface ModalCadastroUsuarioProps {
     aberto: boolean,
