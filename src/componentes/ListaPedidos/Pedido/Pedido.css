@@ -1,0 +1,11 @@
+.container-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 40px 10px;
+    border-bottom: 1px solid #002F52;
+}
+
+.container-pedido:last-child {
+    border-bottom: 0px;
+}
