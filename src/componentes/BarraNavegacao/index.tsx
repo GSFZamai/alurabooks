@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useObterToken } from "../../hooks/token"
 import BotaoNavegacao from "../BotaoNavegacao"
 import ModalCadastroUsuario from "../Modais/ModalCadastroUsuario"
 import ModalLoginUsuario from "../Modais/ModalLoginUsuario"
@@ -8,8 +9,9 @@ import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
 
 const BarraNavegacao = () => {
-    const [modalCadastro, setModalCadastro] = useState(false)
-    const [modalLogin, setModalLogin] = useState(false)
+    const [modalCadastro, setModalCadastro] = useState(false);
+    const [modalLogin, setModalLogin] = useState(false);
+    const token = useObterToken();
 
     return (
         <nav className="ab-navbar">
@@ -51,24 +53,40 @@ const BarraNavegacao = () => {
                 </li>
             </ul>
             <ul className="acoes">
-                <li>
-                    <BotaoNavegacao
-                        onClick={() => setModalLogin(true)}
-                        texto="Login"
-                        textoAltSrc="Icone representando um usuário"
-                        imagemSrc={usuario}
-                    />
-                </li>
-                <li>
-                    <BotaoNavegacao
-                        onClick={() => setModalCadastro(true)}
-                        texto="Cadastrar-se"
-                        textoAltSrc="Icone representando um usuário"
-                        imagemSrc={usuario}
-                    />
-                    <ModalCadastroUsuario aberto={modalCadastro} aoFechar={() => setModalCadastro(false)} />
-                    <ModalLoginUsuario aberto={modalLogin} aoFechar={() => setModalLogin(false)} />
-                </li>
+
+                {
+                    token ?
+                        <>
+                            <li>
+                                <Link
+                                    to="/minha-conta/pedidos"
+                                >
+                                    Minha conta
+                                </Link>
+                            </li>
+                        </>
+                        :
+                        <>
+                            <li>
+                                <BotaoNavegacao
+                                    onClick={() => setModalLogin(true)}
+                                    texto="Login"
+                                    textoAltSrc="Icone representando um usuário"
+                                    imagemSrc={usuario}
+                                />
+                                <ModalLoginUsuario aberto={modalLogin} aoFechar={() => setModalLogin(false)} />
+                            </li>
+                            <li>
+                                <BotaoNavegacao
+                                    onClick={() => setModalCadastro(true)}
+                                    texto="Cadastrar-se"
+                                    textoAltSrc="Icone representando um usuário"
+                                    imagemSrc={usuario}
+                                />
+                                <ModalCadastroUsuario aberto={modalCadastro} aoFechar={() => setModalCadastro(false)} />
+                            </li>
+                        </>
+                }
             </ul>
         </nav>)
 }
