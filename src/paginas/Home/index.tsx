@@ -2,7 +2,6 @@ import { AbCampoTexto } from "ds-alurabooks"
 import { useState } from "react"
 import Banner from "../../componentes/Banner"
 import LivrosDestaque from "../../componentes/LivrosDestaque"
-import ModalCadastroUsuario from "../../componentes/Modais/ModalLoginUsuario"
 import Newsletter from "../../componentes/Newsletter"
 import TagsCategorias from "../../componentes/TagsCategorias"
 import Titulo from "../../componentes/Titulo"
@@ -11,7 +10,6 @@ import './Home.css'
 
 const Home = () => {
     const [busca, setBusca] = useState("")
-
     const lancamentos = [
         {
             autor: 'Tárcio Zemel',
