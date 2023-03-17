@@ -10,3 +10,8 @@
 .container-pedido:last-child {
     border-bottom: 0px;
 }
+
+.container-botoes {
+    display: flex;
+    gap: 20px;
+}

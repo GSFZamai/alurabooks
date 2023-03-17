@@ -7,12 +7,13 @@ interface PedidoProps {
     dataPedido: string,
     valorPedido: number,
     dataEntrega: string
+    excluirPedido: () => void;
 }
 
-export function Pedido({ numeroPedido, dataPedido, valorPedido, dataEntrega }: PedidoProps) {
+export function Pedido({ numeroPedido, dataPedido, valorPedido, dataEntrega, excluirPedido }: PedidoProps) {
 
     function formatToMoney(value: number): string {
-        return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL"})
+        return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
     }
 
     function formatDateString(value: string): string {
@@ -27,7 +28,10 @@ export function Pedido({ numeroPedido, dataPedido, valorPedido, dataEntrega }: P
                 <li>Valor total: <strong>{formatToMoney(valorPedido)}</strong></li>
                 <li>Entrega realizada em: <strong>{formatDateString(dataEntrega)}</strong></li>
             </ul>
-            <AbBotao texto="Detalhes" />
+            <div className="container-botoes">
+                <AbBotao texto="Detalhes" />
+                <AbBotao texto="Excluir" tipo="secundario" onClick={excluirPedido}/>
+            </div>
         </div>
     )
 }

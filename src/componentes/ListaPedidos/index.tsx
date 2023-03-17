@@ -9,7 +9,23 @@ export function ListaPedidos() {
     const token = sessionStorage.getItem("token");
     const [listaPedidos, setListaPedidos] = useState<IPedido[]>([]);
 
-    useEffect(() => {
+    function excluirPedido(idPedido: number) {
+        axios.delete(`http://localhost:8000/pedidos/${idPedido}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                console.log(res);
+                setListaPedidos(listaPedidos.filter(pedido => pedido.id != idPedido))
+            }
+            )
+            .catch(err => console.log(err))
+
+
+    }
+
+    function buscaPedidos() {
         axios.get<IPedido[]>("http://localhost:8000/pedidos", {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -17,7 +33,11 @@ export function ListaPedidos() {
         }).then(response => {
             setListaPedidos(response.data)
         }).catch(e => console.log(e))
+    }
 
+
+    useEffect(() => {
+        buscaPedidos();
     }, []);
 
     return (
@@ -28,6 +48,7 @@ export function ListaPedidos() {
                     return (
                         <Pedido
                             key={pedido.id}
+                            excluirPedido={() => excluirPedido(pedido.id)}
                             numeroPedido={pedido.id}
                             dataPedido={pedido.data}
                             valorPedido={pedido.total}
