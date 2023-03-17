@@ -38,7 +38,7 @@ const ModalCadastroUsuario = ({ aberto, aoFechar }: ModalLoginUsuarioProps) => {
         try {
 
 
-            const response = await axios.post<LoginResponseDTO>("http://localhost:8000/auth/login", login);
+            const response = await axios.post<LoginResponseDTO>("http://localhost:8000/public/login", login);
 
             registrarToken(response.data.access_token);
 

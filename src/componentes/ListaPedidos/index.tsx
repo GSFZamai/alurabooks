@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pedido } from "./Pedido";
 
 import "./ListaPedidos.css";
+import axios from "axios";
+import { IPedido } from "../../interfaces/IPedido";
 
 export function ListaPedidos() {
+    const token = sessionStorage.getItem("token");
+    const [listaPedidos, setListaPedidos] = useState<IPedido[]>([]);
+
+    useEffect(() => {
+        axios.get<IPedido[]>("http://localhost:8000/pedidos", {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).then(response => {
+            setListaPedidos(response.data)
+        }).catch(e => console.log(e))
+
+    }, []);
+
     return (
         <main className="container-lista-pedidos">
             <h2 >Pedidos</h2>
-            <Pedido
-                numeroPedido={89019041}
-                dataPedido="26/05/2022"
-                valorPedido={48}
-                dataEntrega="30/05/2022"
-            />
-            <Pedido
-                numeroPedido={89019040}
-                dataPedido="24/03/2022"
-                valorPedido={65.66}
-                dataEntrega="30/03/2022"
-            />
+            {
+                listaPedidos.map(pedido => {
+                    return (
+                        <Pedido
+                            key={pedido.id}
+                            numeroPedido={pedido.id}
+                            dataPedido={pedido.data}
+                            valorPedido={pedido.total}
+                            dataEntrega={pedido.data}
+                        />
+                    )
+                })
+            }
         </main>
     )
 }

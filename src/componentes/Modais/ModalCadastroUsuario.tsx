@@ -34,7 +34,7 @@ const ModalCadastroUsuario = ({ aberto, aoFechar }: ModalCadastroUsuarioProps) =
         }
 
         try {
-            const response = await axios.post("http://localhost:8000/auth/register", usuario);
+            const response = await axios.post("http://localhost:8000/public/registrar", usuario);
             alert('Usuário foi cadastrado com sucesso!');
 
             setNome("");
