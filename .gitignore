@@ -11,8 +11,8 @@
 # production
 /build
 
-#fake-api
-/fake-rest-api
+#api-alurabooks
+/api-alurabooks
 
 # misc
 .DS_Store

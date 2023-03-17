@@ -10,13 +10,22 @@ interface PedidoProps {
 }
 
 export function Pedido({ numeroPedido, dataPedido, valorPedido, dataEntrega }: PedidoProps) {
+
+    function formatToMoney(value: number): string {
+        return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL"})
+    }
+
+    function formatDateString(value: string): string {
+        return new Date(value).toLocaleDateString("pt-BR");
+    }
+
     return (
         <div className="container-pedido">
             <ul>
                 <li>Pedido: <strong>{numeroPedido}</strong></li>
-                <li>Data do pedido: <strong>{dataPedido}</strong></li>
-                <li>Valor total: <strong>{valorPedido.toLocaleString("pt-BR", { currency: "BRL", style: "currency" })}</strong></li>
-                <li>Entrega realizada em: <strong>{dataEntrega}</strong></li>
+                <li>Data do pedido: <strong>{formatDateString(dataPedido)}</strong></li>
+                <li>Valor total: <strong>{formatToMoney(valorPedido)}</strong></li>
+                <li>Entrega realizada em: <strong>{formatDateString(dataEntrega)}</strong></li>
             </ul>
             <AbBotao texto="Detalhes" />
         </div>

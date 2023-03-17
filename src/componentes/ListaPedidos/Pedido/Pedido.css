@@ -4,6 +4,7 @@
     align-items: flex-end;
     padding: 40px 10px;
     border-bottom: 1px solid #002F52;
+    flex-wrap: wrap;
 }
 
 .container-pedido:last-child {
