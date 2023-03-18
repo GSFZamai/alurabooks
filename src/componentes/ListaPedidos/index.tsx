@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Pedido } from "./Pedido";
 
 import "./ListaPedidos.css";
-import axios from "axios";
 import { IPedido } from "../../interfaces/IPedido";
+import { api } from "../../api/api";
 
 export function ListaPedidos() {
     const token = sessionStorage.getItem("token");
     const [listaPedidos, setListaPedidos] = useState<IPedido[]>([]);
 
     function excluirPedido(idPedido: number) {
-        axios.delete(`http://localhost:8000/pedidos/${idPedido}`, {
+        api.delete(`/pedidos/${idPedido}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -26,7 +26,7 @@ export function ListaPedidos() {
     }
 
     function buscaPedidos() {
-        axios.get<IPedido[]>("http://localhost:8000/pedidos", {
+        api.get<IPedido[]>("/pedidos", {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

@@ -1,6 +1,7 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks"
 import { useState } from "react"
+import { api } from "../../api/api";
 
 import imagemPrincipal from './assets/login.png'
 
@@ -34,17 +35,21 @@ const ModalCadastroUsuario = ({ aberto, aoFechar }: ModalCadastroUsuarioProps) =
         }
 
         try {
-            const response = await axios.post("http://localhost:8000/public/registrar", usuario);
-            alert('Usuário foi cadastrado com sucesso!');
+            const response = await api.post("/public/registrar", usuario);
 
-            setNome("");
-            setEmail("");
-            setEndereco("");
-            setComplemento("");
-            setCep("");
-            setSenha("");
-            setSenhaConfirmada("");
-            aoFechar();
+            if (response.status === 200) {
+
+                alert('Usuário foi cadastrado com sucesso!');
+
+                setNome("");
+                setEmail("");
+                setEndereco("");
+                setComplemento("");
+                setCep("");
+                setSenha("");
+                setSenhaConfirmada("");
+                aoFechar();
+            }
 
         } catch (e) {
             if (e instanceof AxiosError) {
