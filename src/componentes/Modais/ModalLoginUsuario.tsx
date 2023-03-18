@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks"
 import { useState } from "react"
-import { useObterToken, usePersistirToken } from "../../hooks/token";
+import { api } from "../../api/api";
+import { usePersistirToken } from "../../hooks/token";
 
 import imagemPrincipal from './assets/login.png'
 
@@ -38,7 +39,7 @@ const ModalCadastroUsuario = ({ aberto, aoFechar }: ModalLoginUsuarioProps) => {
         try {
 
 
-            const response = await axios.post<LoginResponseDTO>("http://localhost:8000/public/login", login);
+            const response = await api.post<LoginResponseDTO>("http://localhost:8000/public/login", login);
 
             registrarToken(response.data.access_token);
 
