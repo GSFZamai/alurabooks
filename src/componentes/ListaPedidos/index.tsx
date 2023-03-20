@@ -6,18 +6,13 @@ import { IPedido } from "../../interfaces/IPedido";
 import { api } from "../../api/api";
 
 export function ListaPedidos() {
-    const token = sessionStorage.getItem("token");
     const [listaPedidos, setListaPedidos] = useState<IPedido[]>([]);
 
     function excluirPedido(idPedido: number) {
-        api.delete(`/pedidos/${idPedido}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
+        api.delete(`/pedidos/${idPedido}`)
             .then(res => {
                 console.log(res);
-                setListaPedidos(listaPedidos.filter(pedido => pedido.id != idPedido))
+                setListaPedidos(listaPedidos.filter(pedido => pedido.id !== idPedido))
             }
             )
             .catch(err => console.log(err))
@@ -26,11 +21,7 @@ export function ListaPedidos() {
     }
 
     function buscaPedidos() {
-        api.get<IPedido[]>("/pedidos", {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => {
+        api.get<IPedido[]>("/pedidos").then(response => {
             setListaPedidos(response.data)
         }).catch(e => console.log(e))
     }

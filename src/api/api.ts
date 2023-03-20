@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useObterToken } from "../hooks/token";
 
 
 export const api = axios.create({
@@ -7,4 +8,17 @@ export const api = axios.create({
         "Accept": "application/json",
         "Content-type": "application/json"
     }
-})
+});
+
+api.interceptors.request.use((config) => {
+    let token = sessionStorage.getItem("token");
+    console.log("interceptou")
+    if(token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+} , (error) => {
+    alert("Falha ao interceptar requisição!");
+    console.log(error)
+});
