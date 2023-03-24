@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
-
 const TOKEN_KEY = "token";
 
 export function useObterToken() {
-    const [token, setToken] = useState<string | null>(null);
-
-    useEffect(() => {
-        let token = sessionStorage.getItem(TOKEN_KEY);
-        if (token) {
-            setToken(token);
-        }
-    }, []);
-
-    return token;
+    return sessionStorage.getItem(TOKEN_KEY);
 }
 
 export function usePersistirToken() {
@@ -22,7 +11,5 @@ export function usePersistirToken() {
 }
 
 export function useApagarToken() {
-    return () => {
-        sessionStorage.removeItem(TOKEN_KEY);
-    }
+    sessionStorage.removeItem(TOKEN_KEY);
 }
